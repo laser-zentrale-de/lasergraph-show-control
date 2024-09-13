@@ -6,11 +6,11 @@ use iced::{
 };
 
 fn main() -> iced::Result {
-    MyApp::run(Settings::default())
+    App::run(Settings::default())
 }
 
 #[derive(Debug, Clone)]
-enum MyAppMessage {
+enum Message {
     ButtonDmxLoad,
     ButtonDmxStart,
     ButtonDmxStop,
@@ -19,15 +19,15 @@ enum MyAppMessage {
     ButtonTimecodeStop,
 }
 
-struct MyApp {
+struct App {
     state: String,
 }
 
-impl Application for MyApp {
+impl Application for App {
     type Executor = executor::Default;
     type Theme = iced::Theme;
     type Flags = ();
-    type Message = MyAppMessage;
+    type Message = Message;
 
     fn new(_flags: Self::Flags) -> (Self, iced::Command<Self::Message>) {
         (
@@ -44,12 +44,12 @@ impl Application for MyApp {
 
     fn update(&mut self, message: Self::Message) -> iced::Command<Self::Message> {
         match message {
-            MyAppMessage::ButtonDmxLoad => self.state = "DMX Load".to_string(),
-            MyAppMessage::ButtonDmxStart => self.state = "DMX Start".to_string(),
-            MyAppMessage::ButtonDmxStop => self.state = "DMX Stop".to_string(),
-            MyAppMessage::ButtonTimecodeLoad => self.state = "Timecode Load".to_string(),
-            MyAppMessage::ButtonTimecodeStart => self.state = "Timecode Start".to_string(),
-            MyAppMessage::ButtonTimecodeStop => self.state = "Timecode Stop".to_string(),
+            Message::ButtonDmxLoad => self.state = "DMX Load".to_string(),
+            Message::ButtonDmxStart => self.state = "DMX Start".to_string(),
+            Message::ButtonDmxStop => self.state = "DMX Stop".to_string(),
+            Message::ButtonTimecodeLoad => self.state = "Timecode Load".to_string(),
+            Message::ButtonTimecodeStart => self.state = "Timecode Start".to_string(),
+            Message::ButtonTimecodeStop => self.state = "Timecode Stop".to_string(),
         }
 
         Command::none()
@@ -65,19 +65,19 @@ impl Application for MyApp {
                     .style(theme::Button::Primary)
                     .width(Length::Fill)
                     .height(Length::Fill)
-                    .on_press(MyAppMessage::ButtonDmxLoad)
+                    .on_press(Message::ButtonDmxLoad)
                     .padding(20),
                 button("DMX Start")
                     .style(theme::Button::Positive)
                     .width(Length::Fill)
                     .height(Length::Fill)
-                    .on_press(MyAppMessage::ButtonDmxStart)
+                    .on_press(Message::ButtonDmxStart)
                     .padding(20),
                 button("DMX Stop")
                     .style(theme::Button::Secondary)
                     .width(Length::Fill)
                     .height(Length::Fill)
-                    .on_press(MyAppMessage::ButtonDmxStop)
+                    .on_press(Message::ButtonDmxStop)
                     .padding(20),
             ]
             .spacing(20)
@@ -87,19 +87,19 @@ impl Application for MyApp {
                     .style(theme::Button::Primary)
                     .width(Length::Fill)
                     .height(Length::Fill)
-                    .on_press(MyAppMessage::ButtonTimecodeLoad)
+                    .on_press(Message::ButtonTimecodeLoad)
                     .padding(20),
                 button("Timecode Start")
                     .style(theme::Button::Positive)
                     .width(Length::Fill)
                     .height(Length::Fill)
-                    .on_press(MyAppMessage::ButtonTimecodeStart)
+                    .on_press(Message::ButtonTimecodeStart)
                     .padding(20),
                 button("Timecode Stop")
                     .style(theme::Button::Secondary)
                     .width(Length::Fill)
                     .height(Length::Fill)
-                    .on_press(MyAppMessage::ButtonTimecodeStop)
+                    .on_press(Message::ButtonTimecodeStop)
                     .padding(20),
             ]
             .spacing(20)
