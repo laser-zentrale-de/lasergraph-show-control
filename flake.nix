@@ -1,5 +1,5 @@
 {
-  description = "lasergraph-show-control development";
+  description = "lasergraph-show-control";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
@@ -18,12 +18,16 @@
         pkgs = import nixpkgs {
           inherit system overlays;
         };
+        rustToolchain = builtins.fromTOML (builtins.readFile ./rust-toolchain.toml);
+        rust = pkgs.rust-bin.stable.${rustToolchain.toolchain.channel}.default;
+        # Preserved for future use in nix build
+        # cargo = builtins.fromTOML (builtins.readFile ./Cargo.toml);
       in {
         devShells.default = with pkgs;
           mkShell rec {
             buildInputs = [
               pkg-config
-              rust-bin.nightly.latest.default
+              rust
               xorg.libX11
               xorg.libXcursor
               xorg.libXrandr
