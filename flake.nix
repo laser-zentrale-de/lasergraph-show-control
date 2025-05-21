@@ -39,6 +39,8 @@
               pre-commit
               nodejs
               nodePackages.npm
+              watchexec
+              just
             ];
 
             shellHook = ''
